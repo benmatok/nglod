@@ -3,6 +3,7 @@ RUN apt-get update
 RUN apt-get install -y git
 RUN apt-get install -y build-essential
 RUN apt-get install -y curl
+RUN apt-get install -y wget
 RUN mkdir /home/installs
 RUN curl -o /home/installs/miniconda_install.sh https://repo.anaconda.com/miniconda/Miniconda3-py38_4.11.0-Linux-x86_64.sh
 RUN sh /home/installs/miniconda_install.sh -b
@@ -25,3 +26,6 @@ RUN python setup.py clean --all install --user
 WORKDIR /home/nglod/sdf-net/lib/extensions/sol_nglod
 RUN python setup.py clean --all install --user
 WORKDIR /home/nglod/
+RUN wget https://raw.githubusercontent.com/alecjacobson/common-3d-test-models/master/data/armadillo.obj -P data/
+RUN wget https://raw.githubusercontent.com/nidorx/matcaps/master/1024/6E8C48_B8CDA7_344018_A8BC94.png -O data/matcap/green.png
+
