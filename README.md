@@ -9,6 +9,30 @@ In Computer Vision and Pattern Recognition (CVPR), 2021 (Oral)\
 
 ![](imgs/imgs_teaser.jpg)
 
+
+
+
+
+```
+1. Edit/create the /etc/docker/daemon.json with the below content:
+
+{
+    "runtimes": {
+        "nvidia": {
+            "path": "nvidia-container-runtime",
+            "runtimeArgs": []
+        }
+    },
+    "default-runtime": "nvidia"
+}
+
+
+2. run
+sudo docker build -t nglod .
+
+
+```
+
 If you find this code useful, please consider citing:
 
 ```

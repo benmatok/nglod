@@ -17,8 +17,11 @@ ENV CONDA_DEFAULT_ENV nglod
 SHELL ["conda", "run", "-n", "nglod", "/bin/bash", "-c"]
 RUN pip install --upgrade pip
 RUN pip install -r ./infra/requirements.txt
-RUN sudo apt install libopenexr-dev 
+RUN apt-get install -y libopenexr-dev 
 RUN pip install pyexr
-WORKDIR /home/nglod/sdf-net/lib/extensions
-RUN ./build_ext.sh
+
+WORKDIR /home/nglod/sdf-net/lib/extensions/mesh2sdf_cuda
+RUN python setup.py clean --all install --user
+WORKDIR /home/nglod/sdf-net/lib/extensions/sol_nglod
+RUN python setup.py clean --all install --user
 WORKDIR /home/nglod/
