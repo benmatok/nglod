@@ -27,7 +27,9 @@ WORKDIR /home/nglod/sdf-net/lib/extensions/mesh2sdf_cuda
 RUN python setup.py clean --all install --user
 WORKDIR /home/nglod/sdf-net/lib/extensions/sol_nglod
 RUN python setup.py clean --all install --user
-WORKDIR /home/nglod/
-RUN wget https://raw.githubusercontent.com/alecjacobson/common-3d-test-models/master/data/armadillo.obj -P data/
-RUN wget https://raw.githubusercontent.com/nidorx/matcaps/master/1024/6E8C48_B8CDA7_344018_A8BC94.png -O data/matcap/green.png
+WORKDIR /home/nglod/1
+RUN mkdir /home/nglod/sdf-net/data
+RUN mkdir /home/nglod/sdf-net/data/matcap
+RUN wget https://raw.githubusercontent.com/alecjacobson/common-3d-test-models/master/data/armadillo.obj -P /home/nglod/sdf-net/data/
+RUN wget https://raw.githubusercontent.com/nidorx/matcaps/master/1024/6E8C48_B8CDA7_344018_A8BC94.png -O /home/nglod/sdf-net/data/matcap/green.png
 
