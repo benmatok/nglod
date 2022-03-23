@@ -20,6 +20,7 @@ RUN pip install --upgrade pip
 RUN pip install -r ./infra/requirements.txt
 RUN apt-get install -y libopenexr-dev 
 RUN pip install pyexr
+RUN pip install laspy
 
 WORKDIR /home/nglod/sdf-net/lib/extensions/mesh2sdf_cuda
 RUN python setup.py clean --all install --user
