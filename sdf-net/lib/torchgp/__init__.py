@@ -26,6 +26,7 @@ from .sample_surface import sample_surface
 from .sample_near_surface import sample_near_surface
 from .sample_uniform import sample_uniform
 from .load_obj import load_obj
+from .load_las import load_las
 from .compute_sdf import compute_sdf
 from .normalize import normalize
 from .barycentric_coordinates import barycentric_coordinates
