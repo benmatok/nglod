@@ -26,12 +26,13 @@ from torch.utils.data import Dataset
 
 import numpy as np
 import mesh2sdf
+import laspy
+from scipy import spatial
 
-from lib.torchgp import load_obj, point_sample, sample_surface, compute_sdf, normalize
+from lib.torchgp import load_obj, point_sample, sample_surface, compute_sdf, normalize, load_las
 from lib.PsDebugger import PsDebugger
 
 from lib.utils import PerfTimer, setparam
-
 class MeshDataset(Dataset):
     """Base class for single mesh datasets."""
 
@@ -66,10 +67,9 @@ class MeshDataset(Dataset):
             out = load_obj(self.dataset_path, load_materials=True)
             self.V, self.F, self.texv, self.texf, self.mats = out
         else:
-            self.V, self.F = load_obj(self.dataset_path)
-
-        self.V, self.F = normalize(self.V, self.F)
-        self.mesh = self.V[self.F]
+            self.V, self.F = load_obj(self.dataset_path) # load_obj / las
+        self.V = normalize(self.V)
+        #self.mesh = self.V[self.F]
         self.resample()
 
     def resample(self):
@@ -82,7 +82,11 @@ class MeshDataset(Dataset):
         else:
             self.pts = point_sample(self.V, self.F, self.sample_mode, self.num_samples)
 
-        self.d = compute_sdf(self.V.cuda(), self.F.cuda(), self.pts.cuda())   
+        #self.d = compute_sdf(self.V.cuda(), self.F.cuda(), self.pts.cuda())   
+        
+        tree = spatial.KDTree(self.V)
+        self.d = [list[1] for list in tree.query(self.pts, k = 2)[0]]
+        self.d = torch.as_tensor(self.d)
 
         self.d = self.d[...,None]
         self.d = self.d.cpu()
