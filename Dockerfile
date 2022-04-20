@@ -19,7 +19,9 @@ SHELL ["conda", "run", "-n", "nglod", "/bin/bash", "-c"]
 RUN pip install --upgrade pip
 RUN pip install -r ./infra/requirements.txt
 RUN apt-get install -y libopenexr-dev 
-RUN apt-get install ffmpeg libsm6 libxext6 -y
+ENV DEBIAN_FRONTEND noninteractive
+RUN apt-get install dialog apt-utils -y
+RUN apt-get install -y python3-opencv
 RUN pip install pyexr
 RUN pip install laspy
 RUN pip install open3d
