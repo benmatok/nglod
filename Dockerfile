@@ -19,6 +19,7 @@ SHELL ["conda", "run", "-n", "nglod", "/bin/bash", "-c"]
 RUN pip install --upgrade pip
 RUN pip install -r ./infra/requirements.txt
 RUN apt-get install -y libopenexr-dev 
+RUN apt-get install ffmpeg libsm6 libxext6 -y
 RUN pip install pyexr
 RUN pip install laspy
 RUN pip install open3d
@@ -27,9 +28,4 @@ WORKDIR /home/nglod/sdf-net/lib/extensions/mesh2sdf_cuda
 RUN python setup.py clean --all install --user
 WORKDIR /home/nglod/sdf-net/lib/extensions/sol_nglod
 RUN python setup.py clean --all install --user
-WORKDIR /home/nglod/1
-RUN mkdir /home/nglod/sdf-net/data
-RUN mkdir /home/nglod/sdf-net/data/matcap
-RUN wget https://raw.githubusercontent.com/alecjacobson/common-3d-test-models/master/data/armadillo.obj -P /home/nglod/sdf-net/data/
-RUN wget https://raw.githubusercontent.com/nidorx/matcaps/master/1024/6E8C48_B8CDA7_344018_A8BC94.png -O /home/nglod/sdf-net/data/matcap/green.png
-
+WORKDIR /home/nglod/sdf-net
